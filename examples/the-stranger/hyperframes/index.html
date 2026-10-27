@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>The Stranger</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: "DejaVu Serif", serif;
+      }
+      #stage {
+        position: absolute;
+        inset: 0;
+        background: #000;
+      }
+      #film-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        display: block;
+      }
+      .bar {
+        position: absolute;
+        left: 0;
+        width: 1920px;
+        height: 138px;
+        background: #000;
+      }
+      #bar-top {
+        top: 0;
+      }
+      #bar-bottom {
+        bottom: 0;
+      }
+      .card {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #f3d9a4;
+        text-align: center;
+      }
+      .eyebrow {
+        font-size: 26px;
+        letter-spacing: 14px;
+        color: #fff1d6;
+        margin-bottom: 18px;
+        padding: 6px 18px;
+        background: rgba(30, 12, 4, 0.55);
+      }
+      .title {
+        font-size: 150px;
+        font-weight: bold;
+        letter-spacing: 26px;
+        line-height: 1;
+        color: #f6dca6;
+        text-shadow: 0 4px 0 #6b2f12, 0 10px 40px rgba(0, 0, 0, 0.75);
+        transform: scaleY(1.15);
+      }
+      .rule {
+        width: 720px;
+        height: 3px;
+        margin: 26px 0 16px;
+        background: linear-gradient(90deg, transparent, #e9c487, transparent);
+      }
+      .sub {
+        font-size: 24px;
+        letter-spacing: 10px;
+        color: #e9c487;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="24">
+      <section id="stage" class="clip" data-start="0" data-duration="24" data-track-index="0">
+        <canvas id="film-canvas" width="1920" height="1080"></canvas>
+        <div id="bar-top" class="bar"></div>
+        <div id="bar-bottom" class="bar"></div>
+      </section>
+
+      <section id="open-card" class="card clip" data-start="0" data-duration="3" data-track-index="1">
+        <div id="open-eyebrow" class="eyebrow">A TALE OF THE OLD WEST</div>
+        <div id="open-title" class="title">THE STRANGER</div>
+        <div id="open-rule" class="rule"></div>
+      </section>
+
+      <section id="end-card" class="card clip" data-start="20" data-duration="4" data-track-index="2">
+        <div id="end-title" class="title">THE STRANGER</div>
+        <div id="end-rule" class="rule"></div>
+        <div id="end-sub" class="sub">SOME TOWNS REMEMBER · SOME FORGET</div>
+      </section>
+
+      <audio id="soundtrack" src="assets/soundtrack.wav" data-start="0" data-duration="24" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#open-eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.35)
+        .fromTo("#open-title", { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 1.4, ease: "power3.out" }, 0.45)
+        .fromTo("#open-rule", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 1.0, ease: "power2.out" }, 0.9)
+        .to(["#open-eyebrow", "#open-title", "#open-rule"], { opacity: 0, duration: 0.45, ease: "power1.in" }, 2.45)
+        .fromTo("#end-title", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 1.4, ease: "power2.out" }, 20.3)
+        .fromTo("#end-rule", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 1.0, ease: "power2.out" }, 20.9)
+        .fromTo("#end-sub", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power1.out" }, 21.3);
+      window.__timelines["main"] = tl;
+    </script>
+    <script type="module" src="./film.js"></script>
+  </body>
+</html>
