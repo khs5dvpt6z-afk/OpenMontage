@@ -1,0 +1,12 @@
+{
+  "composition_mode": "atelier",
+  "render_runtime": "remotion",
+  "renderer_family": "bespoke",
+  "bespoke": {
+    "entry": "projects/amerika-tarihi-15s/index.tsx",
+    "composition_id": "AmerikaTarihi",
+    "public_dir": "projects/amerika-tarihi-15s/public",
+    "crf": 18,
+    "art_direction": "projects/amerika-tarihi-15s/art-direction.md"
+  }
+}
